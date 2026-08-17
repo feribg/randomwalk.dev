@@ -1,0 +1,49 @@
+{{- /*
+  Cloudflare's Managed robots.txt is enabled on this zone and is injected ahead
+  of this file at the edge. It already blocks GPTBot, ClaudeBot, CCBot,
+  Google-Extended, Applebot-Extended, Bytespider, meta-externalagent and
+  Amazonbot, and emits a Content-Signal reserving rights under Article 4 of the
+  EU DSM copyright directive. This file adds only what that list leaves out.
+
+  Deliberately NOT blocked: ChatGPT-User, Claude-User, Perplexity-User and other
+  on-demand fetchers. Those fire when a human explicitly asks an assistant to
+  read a page — a reader can summarise a post, while the training crawlers above
+  still cannot ingest it.
+
+  Google-Extended and Applebot-Extended are training opt-outs only; neither
+  affects Google Search ranking or Siri/Spotlight indexing.
+
+  robots.txt is a request, not a control. Enforcement against crawlers that
+  ignore it comes from Cloudflare's AI Crawl Control, not from this file.
+*/ -}}
+User-agent: *
+Allow: /
+
+# --- AI training crawlers not covered by Cloudflare's managed list ---
+{{ range slice
+  "anthropic-ai"
+  "Claude-Web"
+  "AI2Bot"
+  "Ai2Bot-Dolma"
+  "cohere-ai"
+  "cohere-training-data-crawler"
+  "Diffbot"
+  "FacebookBot"
+  "ImagesiftBot"
+  "Kangaroo Bot"
+  "Omgili"
+  "Omgilibot"
+  "PanguBot"
+  "PerplexityBot"
+  "Scrapy"
+  "SemrushBot-OCOB"
+  "Timpibot"
+  "VelenPublicWebCrawler"
+  "Webzio-Extended"
+  "YouBot"
+-}}
+User-agent: {{ . }}
+Disallow: /
+
+{{ end -}}
+Sitemap: {{ "sitemap.xml" | absURL }}

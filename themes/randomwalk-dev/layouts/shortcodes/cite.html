@@ -1,0 +1,41 @@
+{{- /*
+  Inline citation marker: {{< cite polya1921 >}} → [1], linked to the matching
+  entry in the page's references list.
+
+  Numbering follows the order of the `references:` front-matter list rather than
+  order of first appearance, so the author controls it and it stays stable when
+  paragraphs get moved around during editing.
+
+  An unknown key is a hard build error rather than a silent no-op — a dangling
+  citation link is exactly the kind of thing that survives a proofread and ships.
+*/ -}}
+{{- $key := .Get 0 -}}
+{{- if not $key -}}
+  {{- errorf "cite: missing reference key in %s — usage: {{< cite some-key >}}" .Page.File.Path -}}
+{{- end -}}
+
+{{- $index := 0 -}}
+{{- range $i, $ref := .Page.Params.references -}}
+  {{- if eq $ref.key $key -}}
+    {{- $index = add $i 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if eq $index 0 -}}
+  {{- errorf "cite: unknown reference key %q in %s — add it to the page's `references:` front matter" $key .Page.File.Path -}}
+{{- end -}}
+
+{{- /*
+  Only the first citation of a key carries the id, so citing the same source
+  twice cannot emit duplicate ids. Repeat markers still link to the reference;
+  the reference's back-link returns to the first mention.
+*/ -}}
+{{- $seen := or (.Page.Store.Get "citedKeys") slice -}}
+{{- $isFirst := not (in $seen $key) -}}
+{{- if $isFirst -}}
+  {{- .Page.Store.Set "citedKeys" (append $key $seen) -}}
+{{- end -}}
+<sup class="cite-ref"{{ if $isFirst }} id="citeref:{{ $key }}"{{ end }}><a href="#ref:{{ $key }}">[{{ $index }}]</a></sup>
+{{- /* The trailing trim matters: without it the template's final newline lands
+       between the marker and whatever follows, so `Pólya{{< cite k >}},` renders
+       as "Pólya[1] ," with a space before the comma. */ -}}

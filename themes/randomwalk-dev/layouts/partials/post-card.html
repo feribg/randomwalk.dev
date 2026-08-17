@@ -1,0 +1,17 @@
+{{/*
+  `1/2/06` is ambiguous outside the US and invisible to machines; the long form
+  matches the post page's own byline, and <time datetime> carries the ISO value
+  for crawlers and assistive tech regardless of how it's displayed.
+*/}}
+<article class="post-card">
+  <time class="card-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  {{ with .Description }}
+  <p class="card-summary">{{ . }}</p>
+  {{ else }}{{ with .Summary }}
+  <p class="card-summary">{{ . | plainify | truncate 160 }}</p>
+  {{ end }}{{ end }}
+  {{/* "Read More" alone is meaningless in a screen reader's link list, where it
+       appears detached from the heading above it. */}}
+  <a class="read-more" href="{{ .RelPermalink }}" aria-label="Read more: {{ .Title }}">Read More</a>
+</article>

@@ -1,0 +1,19 @@
+<nav class="container post-nav">
+  {{ with .PrevInSection }}
+  <a class="prev" href="{{ .RelPermalink }}">
+    <span class="label">&larr; Previous</span>
+    {{ .Title }}
+  </a>
+  {{ else }}
+  <a class="prev" href="{{ (site.GetPage "/blog").RelPermalink }}">
+    <span class="label">&larr; Back to</span>
+    All posts
+  </a>
+  {{ end }}
+  {{ with .NextInSection }}
+  <a class="next" href="{{ .RelPermalink }}">
+    <span class="label">Next &rarr;</span>
+    {{ .Title }}
+  </a>
+  {{ end }}
+</nav>

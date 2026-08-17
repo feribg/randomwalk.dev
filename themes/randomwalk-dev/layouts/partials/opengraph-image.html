@@ -1,0 +1,94 @@
+{{- /*
+  Builds a 1200x630 social card per post and returns its permalink, or "" when
+  a card can't be built.
+
+  Composed entirely inside the Hugo binary via images.Text — no Node, no headless
+  browser, no external card service, and nothing for the author to do per post.
+  images.Text needs a TrueType/OpenType face, which is why assets/og/ carries a
+  .ttf even though the site itself serves woff2.
+
+  The card is the only visual a shared link ever gets on a text blog, so it
+  renders the post title rather than a fixed logo: three identical cards in a
+  feed convey nothing about which post is which.
+*/ -}}
+
+{{- $font := resources.Get "og/SourceSerif4Display-Semibold.ttf" -}}
+{{- $base := resources.Get "og/card-base.png" -}}
+{{- if not $font -}}
+  {{- errorf "opengraph-image: missing assets/og/SourceSerif4Display-Semibold.ttf" -}}
+{{- end -}}
+{{- if not $base -}}
+  {{- errorf "opengraph-image: missing assets/og/card-base.png" -}}
+{{- end -}}
+
+{{- /* --color-text / --color-text-secondary / --color-accent from tokens.css;
+       the background and its accent rule are baked into card-base.png */ -}}
+{{- $ink := "#1c1b19" -}}
+{{- $muted := "#6f6b64" -}}
+{{- $accent := "#8a3b2f" -}}
+
+{{- $title := .Title | plainify -}}
+
+{{- /* Wrap by hand: images.Text has no wrapping of its own, and a long title
+       would otherwise run straight off the right edge of the canvas. ~26 chars
+       per line is what fits at 68px in this face across the 1000px text column. */ -}}
+{{- $words := split $title " " -}}
+{{- $lines := slice -}}
+{{- $current := "" -}}
+{{- range $words -}}
+  {{- $candidate := cond (eq $current "") . (printf "%s %s" $current .) -}}
+  {{- if gt (len $candidate) 26 -}}
+    {{- if ne $current "" -}}
+      {{- $lines = $lines | append $current -}}
+      {{- $current = . -}}
+    {{- else -}}
+      {{- $lines = $lines | append $candidate -}}
+      {{- $current = "" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $current = $candidate -}}
+  {{- end -}}
+{{- end -}}
+{{- if ne $current "" -}}{{- $lines = $lines | append $current -}}{{- end -}}
+{{- /* Four lines is all that fits above the wordmark. Cut with an ellipsis so an
+       over-long title reads as deliberately trimmed rather than as a bug. */ -}}
+{{- if gt (len $lines) 4 -}}
+  {{- $kept := first 3 $lines -}}
+  {{- $fourth := index $lines 3 -}}
+  {{- $lines = $kept | append (printf "%s…" (strings.TrimRight " ," $fourth)) -}}
+{{- end -}}
+
+{{- $filters := slice -}}
+
+{{- /* Centre the title block in the space above the wordmark, so a one-line
+       title isn't top-heavy and a four-line one doesn't crowd the footer. */ -}}
+{{- $lineHeight := 88 -}}
+{{- $areaTop := 60 -}}
+{{- $areaHeight := 410 -}}
+{{- $blockHeight := mul (len $lines) $lineHeight -}}
+{{- $startY := add $areaTop (div (sub $areaHeight $blockHeight) 2) -}}
+
+{{- range $i, $line := $lines -}}
+  {{- $filters = $filters | append (images.Text $line (dict
+        "color" $ink
+        "size" 68
+        "linespacing" 22
+        "x" 90
+        "y" (add $startY (mul $i $lineHeight))
+        "font" $font)) -}}
+{{- end -}}
+
+{{- /* wordmark, bottom-left, in the same accent the site uses for links */ -}}
+{{- $filters = $filters | append (images.Text "randomwalk.dev" (dict
+      "color" $accent "size" 34 "x" 90 "y" 500 "font" $font)) -}}
+
+{{- with .Date -}}
+  {{- if not .IsZero -}}
+    {{- $filters = $filters | append (images.Text (.Format "January 2, 2006") (dict
+          "color" $muted "size" 26 "x" 90 "y" 548 "font" $font)) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $card := $base | images.Filter $filters -}}
+{{- $out := resources.Copy (printf "og/%s.png" (path.Base .RelPermalink)) $card -}}
+{{- $out.Permalink -}}

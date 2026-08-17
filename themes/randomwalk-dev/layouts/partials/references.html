@@ -1,0 +1,31 @@
+{{- /*
+  Per-post reference list, populated from the `references:` front-matter array
+  and linked bidirectionally with the {{< cite >}} shortcode.
+
+  Deliberately headingless: a rule plus the drop in type size marks the boundary,
+  the same way the footnote block above it does. Screen readers get the section's
+  aria-label instead of a visible heading the design doesn't want.
+
+  The <ol> order matches the front-matter order, which is what `cite` numbers
+  against — so [3] in the body always lands on the third entry here.
+*/ -}}
+{{ with .Params.references }}
+<section class="container prose references-section" aria-label="References">
+  <ol class="references">
+    {{ range . }}
+    <li id="ref:{{ .key }}">
+      {{- with .author }}{{ . }}{{ end -}}
+      {{- with .year }} ({{ . }}){{ end -}}
+      {{- if or .author .year }}. {{ end -}}
+      {{- if .url -}}
+        <a href="{{ .url }}" rel="noopener">{{ .title }}</a>
+      {{- else -}}
+        {{ .title }}
+      {{- end -}}
+      {{- with .container }}. <em>{{ . }}</em>{{ end -}}.
+      <a class="reference-backref" href="#citeref:{{ .key }}" aria-label="Back to citation">&#8617;&#xfe0e;</a>
+    </li>
+    {{ end }}
+  </ol>
+</section>
+{{ end }}

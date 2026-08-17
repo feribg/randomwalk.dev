@@ -1,0 +1,99 @@
+.code-block {
+  margin: var(--space-4) 0;
+  border: 1px solid var(--color-code-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  background: var(--color-bg-raised);
+  border-bottom: 1px solid var(--color-code-border);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+}
+
+.code-header .filename {
+  color: var(--color-text);
+}
+
+.copy-btn {
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+  padding: 0.5em 0.8em;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.copy-btn:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-secondary);
+}
+
+.copy-btn.is-copied {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.chroma {
+  margin: 0;
+  padding: 1.1rem 1.4rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  line-height: 1.6;
+  scrollbar-width: thin;
+}
+
+/* width:max-content lets a tinted diff line's background run the full scrolled
+   width instead of stopping at the visible edge; min-width keeps short blocks
+   full-bleed. */
+.chroma pre {
+  margin: 0;
+  min-width: 100%;
+  width: max-content;
+}
+
+.chroma code {
+  font-size: inherit;
+  background: none;
+  padding: 0;
+}
+
+/* Diff line coloring, consistent across pygments styles/themes.
+
+   Chroma emits one `<span class="line">` per line and puts the trailing newline
+   *inside* the token span, so these must be block-level: as inline-blocks the
+   newline sits inside the box, never breaks the line, and every tinted line
+   flows horizontally instead of stacking. Block lines stack on their own rather
+   than relying on that newline. */
+.chroma .line {
+  display: block;
+}
+
+.chroma .gd, .chroma .gi {
+  display: block;
+  margin-inline: -1.4rem;
+  padding-inline: 1.4rem;
+}
+
+.chroma .gd {
+  background: color-mix(in srgb, #b3261e 14%, transparent);
+  color: #b3261e !important;
+}
+
+.chroma .gi {
+  background: color-mix(in srgb, #1a7f37 14%, transparent);
+  color: #1a7f37 !important;
+}
+
+.chroma .gu {
+  color: var(--color-text-secondary) !important;
+  font-weight: 600;
+}

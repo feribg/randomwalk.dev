@@ -1,0 +1,8 @@
+name = "randomwalk-dev"
+# Not open source. This theme is authored for randomwalk.dev specifically and is
+# published for reference only — see /LICENSE at the repository root. Vendored
+# third-party assets keep their own licenses; see /THIRD-PARTY-NOTICES.md.
+license = "All Rights Reserved"
+licenselink = "https://github.com/feribg/randomwalk.dev/blob/main/LICENSE"
+description = "Editorial serif theme for randomwalk.dev — quant/programming writing with native Hugo code highlighting, self-hosted KaTeX math, and light/dark theming."
+min_version = "0.163.0"

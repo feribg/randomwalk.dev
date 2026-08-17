@@ -1,0 +1,83 @@
+baseURL = "https://randomwalk.dev/"
+# `locale` supersedes `languageCode`, which Hugo deprecated in v0.158.0
+locale = "en-us"
+title = "randomwalk.dev"
+theme = "randomwalk-dev"
+
+summarylength = 30
+enableRobotsTXT = true
+# no tags/categories in use yet — avoids Hugo generating empty taxonomy
+# pages with no template; re-enable by removing this if tags are added later
+disableKinds = ["taxonomy", "term"]
+
+[outputs]
+  # the home page's default RSS output mixes in every regular page (Contact —
+  # a page with no `date` front matter, so it'd show up with a bogus
+  # 0001-01-01 date); /blog/index.xml is the correct, clean feed of just the
+  # actual posts, so that's the one feed we keep
+  home = ["HTML"]
+
+[permalinks]
+  # posts still live under content/blog/<slug>/ on disk (so per-post assets
+  # stay organized in one folder each), but the URL drops the "blog" prefix —
+  # every page on the site (posts, contact) reads as site-root-level
+  [permalinks.page]
+    # :contentbasename (not :slug) so the URL matches the folder/file name
+    # chosen on disk rather than an auto-slugified version of the post title
+    blog = "/:contentbasename/"
+
+[params]
+  description = "Notes on quantitative finance, simulation, and the code behind both."
+  author = "randomwalk.dev"
+  email = "hello123@randomwalk.dev"
+
+  # giscus (GitHub Discussions-backed comments). Every value here is a public
+  # identifier — giscus ships all four in the client-side HTML of every page it
+  # renders — so none of them are secrets. The partial renders nothing at all
+  # unless `repoId` is set, so an unconfigured checkout degrades to "no comment
+  # section" instead of giscus's visible "not installed on this repository" error.
+  [params.giscus]
+    repo = "feribg/randomwalk.dev"
+    repoId = "R_kgDONMx9rA"
+    category = "Q&A"
+    categoryId = "DIC_kwDONMx9rM4DDi99"
+    mapping = "pathname"
+
+[menu]
+  [[menu.main]]
+    name = "Blog"
+    url = "/blog/"
+    weight = 10
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 20
+
+[markup]
+  [markup.goldmark]
+    # Without this, Goldmark applies Markdown backslash-escaping *inside* math
+    # before KaTeX ever sees it: `\,` (thin space) arrives as a literal comma and
+    # `\\` (line break) arrives as a single `\`, so every \begin{aligned} and
+    # \begin{bmatrix} collapsed onto one line. Passthrough hands the delimited
+    # span to the renderer verbatim, which means math is written as ordinary
+    # LaTeX — `\{` not `\\{`, `\\` for a line break.
+    [markup.goldmark.extensions.passthrough]
+      enable = true
+      [markup.goldmark.extensions.passthrough.delimiters]
+        block = [['\[', '\]'], ['$$', '$$']]
+        inline = [['\(', '\)'], ['$', '$']]
+    [markup.goldmark.renderer]
+      # allows the rare hand-authored <mark>/<cite>/inline <svg> figure to pass
+      # through untouched; content is first-party, so this is a trusted-source
+      # trade-off, not a public-input rendering path
+      unsafe = true
+  [markup.highlight]
+    # Hugo's default is noClasses = true (inline styles per span); our chroma.css
+    # targets class names like `.chroma .k`, so this must be explicit
+    noClasses = false
+    lineNos = false
+    guessSyntax = true
+
+[minify]
+  [minify.tdewolff.html]
+    keepWhitespace = false

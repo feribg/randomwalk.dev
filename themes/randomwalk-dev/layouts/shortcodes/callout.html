@@ -1,0 +1,4 @@
+<div class="callout{{ with .Get "variant" }} callout--{{ . }}{{ end }}">
+  <span class="callout-label">{{ with .Get "label" }}{{ . }}{{ else }}Note{{ end }}</span>
+  {{ .Inner }}
+</div>

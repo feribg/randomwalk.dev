@@ -1,0 +1,18 @@
+<header class="site-header">
+  <div class="container-wide">
+    <a href="{{ "/" | relLangURL }}" class="site-logo">{{ site.Title }}</a>
+    <button class="nav-toggle" data-nav-toggle aria-expanded="false">Open Menu</button>
+    <nav class="site-nav" data-site-nav>
+      {{ range site.Menus.main }}
+        {{ $isCurrent := false }}
+        {{ if and (eq .Name "Blog") (eq $.Section "blog") }}
+          {{ $isCurrent = true }}
+        {{ else if eq $.RelPermalink .URL }}
+          {{ $isCurrent = true }}
+        {{ end }}
+        <a href="{{ .URL }}"{{ if $isCurrent }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{ end }}
+      <button class="theme-toggle" data-theme-toggle>Dark mode</button>
+    </nav>
+  </div>
+</header>

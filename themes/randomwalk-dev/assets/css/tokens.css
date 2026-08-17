@@ -1,0 +1,102 @@
+:root {
+  /* type scale — serif leads with Charter, which macOS/iOS/Safari already ship
+     (Matthew Carter's design, same refined transitional-serif family as Kepler,
+     the actual font on molsonhart.com); Source Serif 4 is the self-hosted import
+     fallback for platforms without Charter installed, sharing the same Adobe
+     design lineage so the fallback doesn't feel like a downgrade */
+  --font-serif: Charter, "Source Serif 4", "New York", Georgia, ui-serif, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* type scale — a true modular scale, base 1.125rem (18px) x minor-third
+     ratio (1.2), the same ratio class Bringhurst recommends for text-heavy
+     pages with several heading levels: close enough between steps that nothing
+     feels arbitrary, wide enough that every level is unmistakably distinct.
+     step-N = base * 1.2^N, rounded to 4 significant figures:
+       -1: base/1.2=0.9375  1: *1.2=1.35   2: *1.2^2=1.62    3: *1.2^3=1.944
+        4: *1.2^4=2.333     5: *1.2^5=2.8   hero: *1.2^6=3.36
+     Levels 2 and up are fluid: the clamp() preferred value still follows the
+     same vw-interpolation approach, and the minimum is ~78-84% of the desktop
+     value (never a separate, disconnected mobile scale). */
+  --step--1: 0.9375rem;
+  --step-0: 1.125rem;
+  --step-1: 1.35rem;
+  --step-2: clamp(1.45rem, 1.3rem + 0.6vw, 1.62rem);
+  --step-3: clamp(1.65rem, 1.4rem + 1vw, 1.944rem);
+  --step-4: clamp(1.9rem, 1.5rem + 1.6vw, 2.333rem);
+  --step-5: clamp(2.15rem, 1.6rem + 2.2vw, 2.8rem);
+  --step-hero: clamp(2.5rem, 1.8rem + 3vw, 3.36rem);
+
+  /* spacing — a true Fibonacci sequence in rem (each step is the sum of the
+     previous two: 0.5, 0.75, 1.25, 2, 3.25, 5.25, 8.5), the same golden-ratio-
+     adjacent growth Bringhurst ties to classical page proportion. Every value
+     also lands on a 4px grid, so spacing and pixel-grid alignment agree. */
+  --space-1: 0.5rem;
+  --space-2: 0.75rem;
+  --space-3: 1.25rem;
+  --space-4: 2rem;
+  --space-5: 3.25rem;
+  --space-6: 5.25rem;
+  --space-7: 8.5rem;
+
+  /* the article container itself is wide (closer to the 1080px site width) so
+     code blocks, tables and figures get real room to breathe; running prose
+     (p/li/dl, see typography.css) keeps its own ~38em measure cap inside it,
+     so paragraphs still read at a comfortable line length while everything
+     else in the post uses the extra space */
+  --content-width: 1000px;
+  --wide-width: 1080px;
+  --radius: 8px;
+}
+
+/* light palette (default) */
+:root,
+[data-theme="light"] {
+  --color-bg: #fdfdfc;
+  --color-bg-raised: #f7f6f3;
+  --color-text: #1c1b19;
+  --color-text-secondary: #6f6b64;
+  --color-border: #e6e3dd;
+  --color-accent: #8a3b2f;
+  --color-code-bg: #f6f4f0;
+  --color-code-border: #e8e5df;
+  --color-inline-code-bg: #efece5;
+  --color-selection: #f0e3d8;
+  --color-highlight: rgba(28, 27, 25, 0.1);
+  --color-warning: #8a6d3b;
+  --color-error: #b3261e;
+}
+
+[data-theme="dark"] {
+  --color-bg: #15151a;
+  --color-bg-raised: #1b1b21;
+  --color-text: #e9e6e0;
+  --color-text-secondary: #9b968d;
+  --color-border: #2c2c33;
+  --color-accent: #e08a6f;
+  --color-code-bg: #1a1a20;
+  --color-code-border: #2d2d35;
+  --color-inline-code-bg: #232329;
+  --color-selection: #3a2e28;
+  --color-highlight: rgba(233, 230, 224, 0.14);
+  --color-warning: #c9a875;
+  --color-error: #e5847c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #15151a;
+    --color-bg-raised: #1b1b21;
+    --color-text: #e9e6e0;
+    --color-text-secondary: #9b968d;
+    --color-border: #2c2c33;
+    --color-accent: #e08a6f;
+    --color-code-bg: #1a1a20;
+    --color-code-border: #2d2d35;
+    --color-inline-code-bg: #232329;
+    --color-selection: #3a2e28;
+    --color-highlight: rgba(233, 230, 224, 0.14);
+    --color-warning: #c9a875;
+    --color-error: #e5847c;
+  }
+}

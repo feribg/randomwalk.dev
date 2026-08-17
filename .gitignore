@@ -1,0 +1,21 @@
+# Hugo build output and caches
+/public/
+/resources/
+.hugo_build.lock
+
+# OS
+.DS_Store
+
+# Local env / secrets — nothing in this repo needs any, and this is here to keep
+# it that way if a future integration ever tempts one in
+.env
+.env.*
+.dev.vars
+.wrangler/
+
+# Editor / tooling — local convenience, not part of the published source
+node_modules/
+.idea/
+.vscode/
+.claude/
+*.swp

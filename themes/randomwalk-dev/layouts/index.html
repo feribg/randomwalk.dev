@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="container hero">
+  <h1>{{ with .Params.hero_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}</h1>
+  <p>{{ with .Params.hero_subtitle }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}</p>
+</section>
+
+{{ $posts := where site.RegularPages "Type" "blog" }}
+<section class="container">
+  <h2 class="section-heading">Recent posts</h2>
+  {{ with $posts }}
+  <div class="post-grid">
+    {{ range first 3 .ByDate.Reverse }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  {{ else }}
+  {{/* An empty grid reads as a broken page rather than a new one, so say it
+       plainly. Hit on a fresh checkout and whenever every post is still a draft. */}}
+  <p class="empty-state">No posts published yet — the first one is being written.</p>
+  {{ end }}
+</section>
+{{ end }}

@@ -1,0 +1,232 @@
+/* ---------- post card ---------- */
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card .card-date {
+  display: block;
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.post-card .card-summary {
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.post-card h3 {
+  font-size: var(--step-2);
+  margin: 0 0 var(--space-2);
+  line-height: 1.25;
+}
+
+.post-card .read-more {
+  margin-top: auto;
+  padding-top: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  display: inline-flex;
+  width: fit-content;
+  padding-bottom: 0.35em;
+  border-bottom: 1px solid var(--color-text);
+}
+
+/* ---------- table ---------- */
+
+.prose table {
+  margin: var(--space-4) 0;
+  font-size: var(--step--1);
+  /* a table wider than its column count on a phone scrolls sideways inside
+     itself instead of forcing the whole page to scroll horizontally; child
+     elements keep their table-row/table-cell display so columns still align */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.prose th, .prose td {
+  text-align: left;
+  padding: 0.6em 1em;
+  border-bottom: 1px solid var(--color-border);
+  /* Hugo's native GFM table alignment (:---/:---:/---:) emits its own
+     inline text-align, so cells only need the numeric-figure treatment
+     here, not a column class — tabular-nums is a no-op on non-digit text */
+  font-variant-numeric: tabular-nums;
+}
+
+.prose thead th {
+  font-family: var(--font-sans);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75em;
+  letter-spacing: 0.04em;
+}
+
+.prose td code {
+  background: var(--color-inline-code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* ---------- footnote / aside ---------- */
+
+.aside {
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.footnotes {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+}
+
+/* Hugo's default footnote template already emits its own <hr> inside
+   .footnotes; the section already gets a top border above, so the
+   injected rule would just double the divider */
+.footnotes hr {
+  display: none;
+}
+
+.footnotes ol {
+  max-width: none;
+}
+
+/* the list's trailing margin is interior space at the very end of the block —
+   it only pushes whatever section follows further away */
+.footnotes ol:last-child,
+.references:last-child {
+  margin-bottom: 0;
+}
+
+.footnote-ref, .footnote-backref {
+  text-decoration: none;
+}
+
+/* ---------- references ---------- */
+
+/* Same treatment as .footnotes above, on purpose: notes and citations are two
+   kinds of the same thing to a reader, so they should read as one family. Also
+   headingless — the rule and the drop in size mark the boundary; the section
+   carries an aria-label so screen readers still get told what it is. */
+.references {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--step--1);
+  color: var(--color-text-secondary);
+  max-width: none;
+}
+
+/* .post-body already ends in a --space-5 bottom padding, which would stack on
+   .references' own --space-5 top margin and open a gap twice the size of the one
+   above .footnotes. Cancel it so notes and citations sit on the same rhythm. */
+.references-section {
+  margin-top: calc(-1 * var(--space-5));
+  padding-bottom: var(--space-4);
+}
+
+.cite-ref a,
+.reference-backref {
+  text-decoration: none;
+}
+
+.reference-backref {
+  margin-left: 0.35em;
+}
+
+/* Anchor jumps in both directions — citation → reference and back — otherwise
+   land the target flush against the top edge of the viewport with no context
+   above it. */
+[id^="ref:"],
+[id^="citeref:"],
+[id^="fn:"],
+[id^="fnref"] {
+  scroll-margin-top: var(--space-4);
+}
+
+/* A halo rather than a background so the highlight costs no layout shift, and
+   the eye still catches which entry the jump actually landed on. */
+[id^="ref:"]:target,
+[id^="fn:"]:target {
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 0.35em var(--color-highlight);
+  border-radius: 2px;
+}
+
+/* ---------- callout ---------- */
+
+.callout {
+  margin: var(--space-4) 0;
+  padding: var(--space-3);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-text-secondary);
+  border-radius: var(--radius);
+}
+
+.callout-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.4em;
+}
+
+.callout p {
+  max-width: none; /* the callout box already sets its own measure; don't cap it again inside */
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+.callout--warning {
+  border-left-color: var(--color-warning);
+}
+
+.callout--warning .callout-label {
+  color: var(--color-warning);
+}
+
+/* ---------- figure / diagrams ---------- */
+
+/* height:auto is load-bearing, not boilerplate. The render hook emits real
+   width/height attributes — good, they reserve layout space and prevent shift —
+   but paired with `width: 100%` alone the browser keeps the attribute's height
+   as a used value, so any image whose column width differs from its intrinsic
+   width renders vertically stretched. */
+.prose figure img,
+.prose figure svg {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+}
+
+/* ---------- KaTeX overflow guard ---------- */
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25em;
+  scrollbar-width: none;
+}
+
+.katex-display::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,8 @@
+{{- $result := transform.HighlightCodeBlock . -}}
+<div class="code-block">
+  <div class="code-header">
+    <span class="filename">{{ with .Attributes.filename }}{{ . }}{{ else }}{{ .Type | title }}{{ end }}</span>
+    <button class="copy-btn" type="button" aria-live="polite">Copy</button>
+  </div>
+  <div class="chroma"><pre tabindex="0">{{ $result.Inner }}</pre></div>
+</div>

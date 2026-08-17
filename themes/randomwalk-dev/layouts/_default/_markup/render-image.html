@@ -1,0 +1,24 @@
+{{- $img := "" -}}
+{{- with .Page.Resources.GetMatch .Destination -}}{{ $img = . }}{{- end -}}
+{{- if and $img (in (slice "image/png" "image/jpeg") $img.MediaType.String) -}}
+  {{- $widths := slice 640 1280 -}}
+  <figure>
+    <picture>
+      {{- range $format := slice "avif" "webp" }}
+      <source type="image/{{ $format }}" srcset="{{ range $i, $w := $widths }}{{ if $i }}, {{ end }}{{ ($img.Resize (printf "%dx %s" $w $format)).RelPermalink }} {{ $w }}w{{ end }}">
+      {{- end }}
+      <img
+        src="{{ ($img.Resize (printf "%dx" (index $widths 0))).RelPermalink }}"
+        srcset="{{ range $i, $w := $widths }}{{ if $i }}, {{ end }}{{ ($img.Resize (printf "%dx" $w)).RelPermalink }} {{ $w }}w{{ end }}"
+        sizes="(max-width: 1000px) 100vw, 1000px"
+        alt="{{ .PlainText }}"
+        width="{{ $img.Width }}"
+        height="{{ $img.Height }}"
+        loading="lazy"
+        decoding="async">
+    </picture>
+    {{- with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
+  </figure>
+{{- else -}}
+  <img src="{{ .Destination }}" alt="{{ .PlainText }}" loading="lazy" decoding="async">
+{{- end -}}

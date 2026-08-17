@@ -1,0 +1,37 @@
+{{/*
+  Comments via giscus, backed by GitHub Discussions.
+
+  Guarded on `repoId` so a checkout without giscus configured renders no comment
+  section at all. Without the guard giscus still mounts and paints its own
+  "giscus is not installed on this repository" error into the page — visible to
+  every reader — which is strictly worse than showing nothing.
+
+  Every data-* value here is a public identifier: giscus ships all of them in the
+  client-side HTML of every page it renders, so none belong in secret storage.
+
+  `preferred_color_scheme` gets the widget's first paint right before any of our
+  JS runs; `sendGiscusTheme` in assets/js/main.js takes over afterwards so an
+  explicit light/dark toggle propagates into the cross-origin iframe.
+*/}}
+{{ with site.Params.giscus }}
+  {{ with .repoId }}
+<section class="container prose comments">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ site.Params.giscus.repo }}"
+    data-repo-id="{{ . }}"
+    data-category="{{ site.Params.giscus.category }}"
+    data-category-id="{{ site.Params.giscus.categoryId }}"
+    data-mapping="{{ default "pathname" site.Params.giscus.mapping }}"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+</section>
+  {{ end }}
+{{ end }}

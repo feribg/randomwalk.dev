@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="container-wide">
+  {{/* Carries the page's only <h1>; without it the heading structure would start
+       at the h3 inside each post card, and _index.md's title/description would
+       render nowhere. */}}
+  <header class="list-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </header>
+
+  {{ $posts := where site.RegularPages "Type" "blog" }}
+  {{ with $posts }}
+  <div class="post-grid">
+    {{ range .ByDate.Reverse }}
+      {{ partial "post-card.html" . }}
+    {{ end }}
+  </div>
+  {{ else }}
+  <p class="empty-state">No posts published yet — the first one is being written.</p>
+  {{ end }}
+</div>
+{{ end }}

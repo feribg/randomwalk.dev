@@ -1,0 +1,32 @@
+{{- /*
+  Structured data for a post.
+
+  Built as one dict and encoded once, rather than interpolating `jsonify` per
+  field. Go's html/template treats a <script> body as a JS context and escapes
+  values going into it, so a per-field `{{ .Title | jsonify }}` gets encoded
+  twice and ships as "\"Design Reference…\"" — literal quote characters inside
+  the string, which is what a consumer then reads as the headline. Encoding the
+  whole object once and marking it safeJS is the way out.
+
+  The card is already built and cached for this page by head.html, so asking for
+  it again is a lookup rather than a second render.
+*/ -}}
+{{- $data := dict
+      "@context" "https://schema.org"
+      "@type" "BlogPosting"
+      "headline" .Title
+      "datePublished" (.Date.Format "2006-01-02")
+      "dateModified" ((default .Date .Lastmod).Format "2006-01-02")
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+      "wordCount" .WordCount
+      "inLanguage" "en"
+      "author" (dict "@type" "Person" "name" site.Params.author)
+      "publisher" (dict "@type" "Organization" "name" site.Params.author)
+-}}
+{{- with partial "opengraph-image.html" . -}}
+  {{- $data = merge $data (dict "image" .) -}}
+{{- end -}}
+{{- with .Description -}}
+  {{- $data = merge $data (dict "description" .) -}}
+{{- end -}}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>
