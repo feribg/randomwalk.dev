@@ -27,7 +27,7 @@ disableKinds = ["taxonomy", "term"]
     blog = "/:contentbasename/"
 
 [params]
-  description = "Notes on quantitative finance, simulation, and the code behind both."
+  description = "Musings on code, models and markets — quant finance, machine learning, and the engineering that makes them work."
   author = "randomwalk.dev"
   email = "hello123@randomwalk.dev"
 
