@@ -266,3 +266,23 @@ figcaption {
   text-align: center;
   margin-top: var(--space-2);
 }
+
+/* Provenance notes — the "▸ computed by …" lines under tables and figures.
+   Authored as a paragraph that is entirely emphasised, which is the only place
+   that pattern occurs in this site's prose. They annotate the thing above them
+   rather than carrying the argument forward, so they get the same treatment as
+   a figcaption: sans, one step down, secondary colour. At --step--1 they also
+   match the type size of the table they sit under. */
+.prose p > em:only-child {
+  font-family: var(--font-sans);
+  font-size: var(--step--1);
+  font-style: normal;
+  color: var(--color-text-secondary);
+}
+
+/* …and sit closer to what they describe than to the paragraph that follows,
+   so the pair reads as one unit. */
+.prose table + p:has(> em:only-child),
+.prose figure + p:has(> em:only-child) {
+  margin-top: calc(-1 * var(--space-2));
+}
