@@ -10,7 +10,35 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
-  color-scheme: light dark; /* lets the browser render native form controls/scrollbars in the right theme */
+}
+
+/* Native UI — scrollbars, form controls, the text caret — is painted by the
+   browser and follows color-scheme, not our palette. A flat `color-scheme:
+   light dark` resolves against the OS appearance, which desyncs the moment a
+   reader uses the theme toggle: an OS in dark appearance paints the pale
+   translucent scrollbar thumb, which then vanishes against the light palette's
+   #fdfdfc background. Binding it to data-theme keeps the browser's chrome and
+   our palette in agreement.
+
+   Mirrors the cascade in tokens.css, including the no-JS fallback: with
+   scripting off there is no data-theme attribute, so the media query applies
+   and the OS preference wins — exactly how the palette already behaves. */
+:root {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {

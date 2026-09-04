@@ -1,0 +1,37 @@
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Median error from smearing a discrete dividend into a yield, by tenor and side">
+<line x1="62" y1="248.0" x2="590" y2="248.0" stroke="currentColor" stroke-opacity=".10" stroke-width="1"/>
+<text x="52.0" y="252.0" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">0.01</text><line x1="62" y1="206.4" x2="590" y2="206.4" stroke="currentColor" stroke-opacity=".10" stroke-width="1"/>
+<text x="52.0" y="210.4" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">0.1</text><line x1="62" y1="164.8" x2="590" y2="164.8" stroke="currentColor" stroke-opacity=".10" stroke-width="1"/>
+<text x="52.0" y="168.8" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">1</text><line x1="62" y1="123.2" x2="590" y2="123.2" stroke="currentColor" stroke-opacity=".10" stroke-width="1"/>
+<text x="52.0" y="127.2" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">10</text><line x1="62" y1="81.6" x2="590" y2="81.6" stroke="currentColor" stroke-opacity=".10" stroke-width="1"/>
+<text x="52.0" y="85.6" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">100</text><text x="128.0" y="268.0" text-anchor="middle" font-size="11.5" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">30d</text><line x1="115.0" y1="167.2" x2="115.0" y2="77.9" stroke="var(--color-accent)" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="115.0" cy="167.2" r="3.5" fill="none" stroke="var(--color-accent)" stroke-opacity=".95" stroke-width="1.6"/>
+<circle cx="115.0" cy="77.9" r="4.5" fill="var(--color-accent)" fill-opacity=".95"/>
+<line x1="141.0" y1="197.6" x2="141.0" y2="94.9" stroke="currentColor" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="141.0" cy="197.6" r="3.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="1.6"/>
+<circle cx="141.0" cy="94.9" r="4.5" fill="currentColor" fill-opacity=".55"/>
+<text x="260.0" y="268.0" text-anchor="middle" font-size="11.5" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">91d</text><line x1="247.0" y1="174.0" x2="247.0" y2="83.1" stroke="var(--color-accent)" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="247.0" cy="174.0" r="3.5" fill="none" stroke="var(--color-accent)" stroke-opacity=".95" stroke-width="1.6"/>
+<circle cx="247.0" cy="83.1" r="4.5" fill="var(--color-accent)" fill-opacity=".95"/>
+<line x1="273.0" y1="209.5" x2="273.0" y2="92.6" stroke="currentColor" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="273.0" cy="209.5" r="3.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="1.6"/>
+<circle cx="273.0" cy="92.6" r="4.5" fill="currentColor" fill-opacity=".55"/>
+<text x="392.0" y="268.0" text-anchor="middle" font-size="11.5" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">365d</text><line x1="379.0" y1="193.9" x2="379.0" y2="106.5" stroke="var(--color-accent)" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="379.0" cy="193.9" r="3.5" fill="none" stroke="var(--color-accent)" stroke-opacity=".95" stroke-width="1.6"/>
+<circle cx="379.0" cy="106.5" r="4.5" fill="var(--color-accent)" fill-opacity=".95"/>
+<line x1="405.0" y1="207.3" x2="405.0" y2="93.3" stroke="currentColor" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="405.0" cy="207.3" r="3.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="1.6"/>
+<circle cx="405.0" cy="93.3" r="4.5" fill="currentColor" fill-opacity=".55"/>
+<text x="524.0" y="268.0" text-anchor="middle" font-size="11.5" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">730d</text><line x1="511.0" y1="194.6" x2="511.0" y2="110.1" stroke="var(--color-accent)" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="511.0" cy="194.6" r="3.5" fill="none" stroke="var(--color-accent)" stroke-opacity=".95" stroke-width="1.6"/>
+<circle cx="511.0" cy="110.1" r="4.5" fill="var(--color-accent)" fill-opacity=".95"/>
+<line x1="537.0" y1="198.7" x2="537.0" y2="97.4" stroke="currentColor" stroke-opacity=".25" stroke-width="6" stroke-linecap="round"/>
+<circle cx="537.0" cy="198.7" r="3.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-width="1.6"/>
+<circle cx="537.0" cy="97.4" r="4.5" fill="currentColor" fill-opacity=".55"/>
+<line x1="62" y1="248" x2="590" y2="248" stroke="currentColor" stroke-opacity=".28" stroke-width="1"/>
+<line x1="62" y1="40" x2="62" y2="248" stroke="currentColor" stroke-opacity=".28" stroke-width="1"/>
+<circle cx="612" cy="56" r="4.5" fill="var(--color-accent)" fill-opacity=".95"/>
+<text x="624.0" y="60.0" text-anchor="start" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">call, smeared</text><circle cx="612" cy="76" r="4.5" fill="currentColor" fill-opacity=".55"/>
+<text x="624.0" y="80.0" text-anchor="start" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">put, smeared</text><circle cx="612" cy="96" r="3.5" fill="none" stroke="currentColor" stroke-opacity=".7" stroke-width="1.6"/>
+<text x="624.0" y="100.0" text-anchor="start" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">same, on the</text><text x="624.0" y="114.0" text-anchor="start" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".70" font-family="var(--font-sans),system-ui,sans-serif">real schedule</text><text x="52.0" y="28.0" text-anchor="end" font-size="11" font-weight="400" fill="currentColor" fill-opacity=".55" font-family="var(--font-sans),system-ui,sans-serif">vol bp</text>
+</svg>
