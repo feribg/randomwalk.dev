@@ -1,7 +1,8 @@
 # randomwalk.dev
 
-Source for [randomwalk.dev](https://randomwalk.dev) — notes on quantitative
-finance, simulation, and the code behind both.
+Source for [randomwalk.dev](https://randomwalk.dev) — musings on code, models
+and markets: quant finance, machine learning, and the engineering that makes
+them work.
 
 Built with [Hugo](https://gohugo.io/) on a custom theme
 (`themes/randomwalk-dev/`): editorial serif typography, native Chroma syntax
